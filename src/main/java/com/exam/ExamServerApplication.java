@@ -9,6 +9,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -20,7 +21,9 @@ public class ExamServerApplication implements CommandLineRunner {
     private UserService userService;
 
     @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private PasswordEncoder bCryptPasswordEncoder;
+//    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
 
     public static void main(String[] args) {
         SpringApplication.run(ExamServerApplication.class, args);
@@ -30,27 +33,24 @@ public class ExamServerApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
         System.out.println("Started...");
 
-        User user = new User();
-        user.setFirstname("Dinesh");
-        user.setLastname("More");
-        user.setUsername("dinesh22");
-        user.setPassword(bCryptPasswordEncoder.encode("Admin"));
-        user.setEmail("dinesh@email.com");
-        user.setProfile("default.png");
-        user.setPhone("8805512261");
-
-        Role role = new Role(); // role.setRoleId(111); role.setRoleName("admin");
-        role.setRoleName("Admin");
-
-        UserRole userRole = new UserRole();
-        userRole.setRole(role);
-        userRole.setUser(user);
-
-        Set<UserRole> userRoles = new HashSet<>();
-        userRoles.add(userRole);
-
-        this.userService.createUser(user, userRoles);
-		System.out.println("HHH: "+user.toString());
+		/*
+		 * User user = new User(); user.setFirstname("Dinesh");
+		 * user.setLastname("More"); user.setUsername("dinesh22");
+		 * user.setPassword(bCryptPasswordEncoder.encode("admin"));
+		 * user.setEmail("dinesh@email.com"); user.setProfile("default.png");
+		 * user.setPhone("8805512261");
+		 * 
+		 * Role role = new Role(); // role.setRoleId(111); role.setRoleName("ADMIN");
+		 * role.setRoleName("NORMAL"); role.setRoleName("ADMIN");
+		 * 
+		 * UserRole userRole = new UserRole(); userRole.setRole(role);
+		 * userRole.setUser(user);
+		 * 
+		 * Set<UserRole> userRoles = new HashSet<>(); userRoles.add(userRole);
+		 * 
+		 * this.userService.createUser(user, userRoles); System.out.println("HHH: " +
+		 * user.toString());
+		 */
 
     }
 }

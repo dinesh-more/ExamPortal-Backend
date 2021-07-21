@@ -15,47 +15,46 @@ import java.util.Set;
 @Service
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+	@Autowired
+	private UserRepository userRepository;
 
-    @Autowired
-    private RoleRepository roleRepository;
+	@Autowired
+	private RoleRepository roleRepository;
 
-    @Override
-    public User createUser(User user, Set<UserRole> userRoles) throws Exception {
-        User localUser = this.userRepository.findByUsername(user.getUsername());
-        if (localUser != null) {
-            System.out.println("User is already present.");
-            throw new Exception("User already present.");
-        } else {
-            //create user
-            for (UserRole ur:userRoles) {
-                this.roleRepository.save(ur.getRole());
-            }
+	@Override
+	public User createUser(User user, Set<UserRole> userRoles) throws Exception {
+		User localUser = this.userRepository.findByUsername(user.getUsername());
+		if (localUser != null) {
+			System.out.println("User is already present.");
+			throw new Exception("User already present.");
+		} else {
+			// create user
+			for (UserRole ur : userRoles) {
+				this.roleRepository.save(ur.getRole());
+			}
 
-            user.getUserRoles().addAll(userRoles);
-            localUser = this.userRepository.save(user);
-        }
-        return localUser;
-    }
+			user.getUserRoles().addAll(userRoles);
+			localUser = this.userRepository.save(user);
+		}
+		return localUser;
+	}
 
-    @Override
-    public User getUser(String userName) {
-        return this.userRepository.findByUsername(userName);
-    }
+	@Override
+	public User getUser(String userName) {
+		return this.userRepository.findByUsername(userName);
+	}
 
-    @Override
-    public void updateUser(User user) throws Exception {
+	@Override
+	public void updateUser(User user) throws Exception {
 //        User existingUser = this.userRepository.findByuserName(user.getUserName());
-//        User existingUser = this.userRepository.findById(user.getId()).get(); //.get() -> if exist.
-//        existingUser.setFirstName(user.getFirstName());
-//        existingUser.setLastName(user.getLastName());
-//        existingUser.setEmail(user.getEmail());
-//        existingUser.setPassword(user.getPassword());
-//        existingUser.setPhone(user.getPhone());
-//        existingUser.setProfile(user.getProfile());
-        this.userRepository.save(user);
-    }
-
+		User existingUser = this.userRepository.findById(user.getId()).get(); // .get() -> if exist.
+		existingUser.setFirstname(user.getFirstname());
+		existingUser.setLastname(user.getLastname());
+		existingUser.setEmail(user.getEmail());
+		existingUser.setPassword(user.getPassword());
+		existingUser.setPhone(user.getPhone());
+		existingUser.setProfile(user.getProfile());
+		this.userRepository.save(existingUser);
+	}
 
 }
